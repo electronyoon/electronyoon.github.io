@@ -4,35 +4,39 @@
 entries:
   - title: info
     entries:
-      - title: a (nearly) no-CSS, fast, minimalist Jekyll theme.
+      - title: 주니어 Java 개발자 윤전자의 블로그. 기술과 개인적 생각을 적습니다.
+      - title: 크래프톤 정글 3기 수료생
+        url: https://youtu.be/VE9g69XFN3Q
       - title: github repo
-        url: https://github.com/riggraz/no-style-please
-      - title: "used by <a href='https://riggraz.dev'>riggraz.dev</a> and <a href='https://github.com/riggraz/no-style-please/network/dependents'>many others</a>"
+        url: https://github.com/electronyoon
 
   - title: all posts
     post_list:
       limit: 5
       show_more: true
-      show_more_text: See archive...
+      show_more_text: More posts...
       show_more_url: archive.html
 
-  - title: posts by category
+  - title: posts by category "tech"
     post_list:
-      category: example2
+      limit: 5
+      category: tech
       show_more: true
-      show_more_text: See more posts...
-      show_more_url: example2-archive.html
+      show_more_text: More posts...
+      show_more_url: archive-tech.html
 
-  - title: rss
-    url: feed.xml
-  
-  - title: another list
-    entries:
-      - title: with subitems
-        entries:
-          - title: with subsubitems
-          - title: example page
-            url: about
-  - title: PRO TIP
-    entries:
-      - title: to edit this menu, edit _data/menu.yml file
+  - title: posts by category "reviews"
+    post_list:
+      limit: 3
+      category: reviews
+      show_more: true
+      show_more_text: More posts...
+      show_more_url: archive-reviews.html
+
+  - title: posts by category "thoughts"
+    post_list:
+      limit: 3
+      category: thoughts
+      show_more: true
+      show_more_text: More posts...
+      show_more_url: archive-thoughts.html
