@@ -114,3 +114,14 @@ dt {
 dl dd {
   margin-bottom: 1em;
 }
+
+blockquote dl {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+blockquote dl dd {
+  margin-top: 0;
+  margin-left: 16px;
+  margin-bottom: 0;
+}
