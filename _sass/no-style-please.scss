@@ -83,8 +83,15 @@ blockquote {
   font-style: italic;
   border: thin solid black;
   padding: 1rem;
-
+  
   p { margin: 0; }
+  
+  color: gray;
+  font-size: 14px;
+
+  @media (max-width: 768px) {
+    margin: 0;
+  }
 }
 
 img {
