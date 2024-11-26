@@ -9,6 +9,12 @@ layout: default
     <time datetime="{{ page.date }}" class="created-date">
       Created at {{ page.date | date: "%F" }}
     </time>
+    {% if page.last_modified_at %}
+    <br>
+    <time datetime="{{ page.last_modified_at }}" class="modified-date">
+      Last modified at {{ page.last_modified_at | date: "%F" }}
+    </time>
+    {% endif %}
   </p>
   
   <h1>{{ page.title }}</h1>
