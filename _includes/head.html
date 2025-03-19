@@ -28,4 +28,24 @@
     gtag('config', '{{ site.google_analytics }}');
   </script>
   {% endif %}
+  
+  <!-- KaTeX -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      var mathElements = document.getElementsByClassName("math");
+      for (var i = 0; i < mathElements.length; i++) {
+        var texText = mathElements[i].textContent;
+        var el = mathElements[i];
+        try {
+          katex.render(texText, el, { displayMode: true });
+        }
+        catch (err) {
+          console.error(err);
+          el.textContent = "Error rendering LaTeX: " + err.message;
+        }
+      }
+    });
+  </script>
 </head>
