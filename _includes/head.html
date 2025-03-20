@@ -32,6 +32,27 @@
   <!-- KaTeX -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
   <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+  <style>
+    /* Fix for KaTeX overflow on mobile */
+    .math {
+      overflow-x: auto;
+      overflow-y: hidden;
+      max-width: 100%;
+    }
+    .katex-display {
+      overflow-x: auto;
+      overflow-y: hidden;
+      max-width: 100%;
+      padding: 0.5em 0;
+    }
+    .katex {
+      max-width: 100%;
+    }
+    /* Specifically target .base elements to ensure they don't break layout */
+    .katex .base {
+      white-space: nowrap;
+    }
+  </style>
   <script>
     document.addEventListener("DOMContentLoaded", function() {
       var mathElements = document.getElementsByClassName("math");
