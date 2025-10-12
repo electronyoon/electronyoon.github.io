@@ -4,7 +4,7 @@ email: electronyoon@gmail.com
 url: https://electronyoon.github.io
 baseurl: ""
 description: >
-  주니어 개발자 윤전자의 블로그입니다.
+  윤전자의 블로그입니다.
 
 permalink: /:slug.html
 
