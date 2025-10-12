@@ -2,6 +2,7 @@
 layout: post
 title: "Hazelcast 환경에서 세션 탈취 방지 기능 구현"
 category: tech
+last_modified_at: 2025-10-12
 ---
 
 1. [들어가며](#1-들어가며)
