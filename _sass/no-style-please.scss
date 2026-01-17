@@ -48,7 +48,14 @@ p { margin: 1rem 0; }
 
 li { margin: 0.4rem 0; }
 
-*:target { background: yellow; }
+*:target {
+  animation: target-fade 3s ease-out;
+}
+
+@keyframes target-fade {
+  0% { background: yellow; }
+  100% { background: transparent; }
+}
 
 .w {
   max-width: 640px;
