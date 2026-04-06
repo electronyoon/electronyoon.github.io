@@ -69,4 +69,23 @@
       }
     });
   </script>
+
+  <!-- Chart.js global defaults: taller aspect ratio on mobile -->
+  <script>
+    (function () {
+      Object.defineProperty(window, 'Chart', {
+        configurable: true,
+        set: function (cls) {
+          Object.defineProperty(window, 'Chart', {
+            configurable: true,
+            writable: true,
+            value: cls,
+          });
+          if (cls && cls.defaults) {
+            cls.defaults.aspectRatio = window.innerWidth <= 768 ? 1.3 : 2;
+          }
+        },
+      });
+    })();
+  </script>
 </head>
