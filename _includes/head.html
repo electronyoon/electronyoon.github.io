@@ -76,6 +76,18 @@
     });
   </script>
 
+  <!-- Wrap tables for horizontal scroll -->
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      document.querySelectorAll("table").forEach(function(table) {
+        var wrapper = document.createElement("div");
+        wrapper.className = "table-wrapper";
+        table.parentNode.insertBefore(wrapper, table);
+        wrapper.appendChild(table);
+      });
+    });
+  </script>
+
   <!-- Chart.js global defaults: taller aspect ratio on mobile -->
   <script>
     (function () {

@@ -77,10 +77,13 @@ hr {
   }
 }
 
+.table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+}
+
 table {
   width: 100%;
-  display: block;
-  overflow-x: auto;
   border-collapse: collapse;
 }
 
