@@ -2,6 +2,19 @@
 <html lang="{{ page.lang | default: "en" }}">
   {%- include head.html -%}
   <body a="{{ site.theme_config.appearance | default: "auto" }}">
+    <script>
+      (function() {
+        var saved = localStorage.getItem('theme');
+        if (saved) document.body.setAttribute('a', saved);
+      })();
+      function toggleTheme() {
+        var current = document.body.getAttribute('a');
+        var next = (current === 'dark') ? 'light' : 'dark';
+        document.body.setAttribute('a', next);
+        localStorage.setItem('theme', next);
+      }
+    </script>
+    <button id="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme" style="position:fixed;top:1rem;right:1rem;background:none;border:none;cursor:pointer;font-size:1.2rem;padding:0.2rem;z-index:100;">◐</button>
     <main class="page-content" aria-label="Content">
       <div class="w">
         {{ content }}
