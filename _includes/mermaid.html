@@ -16,7 +16,19 @@
       pre.replaceWith(div);
     });
 
-    mermaid.run();
+    mermaid.run().then(function() {
+      // 모바일에서 원래 크기로 그린 뒤 가로 스크롤할 수 있도록,
+      // mermaid가 SVG에 남긴 자연 폭을 CSS 변수로 노출한다.
+      document.querySelectorAll('div.mermaid').forEach(function(div) {
+        const svg = div.querySelector('svg');
+        if (!svg) return;
+        let w = svg.style.maxWidth;
+        if (!w && svg.viewBox && svg.viewBox.baseVal) {
+          w = svg.viewBox.baseVal.width + 'px';
+        }
+        if (w) div.style.setProperty('--mermaid-natural-width', w);
+      });
+    });
   };
   document.head.appendChild(script);
 })();
