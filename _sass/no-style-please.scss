@@ -94,6 +94,19 @@ hr {
   overflow-x: auto;
 }
 
+.mermaid {
+  overflow-x: auto;
+
+  // PC는 mermaid 기본 동작(본문 폭에 맞춰 축소)을 유지하고,
+  // 모바일에서는 원래 크기로 그린 뒤 넘치면 가로 스크롤한다.
+  @media (max-width: 768px) {
+    svg {
+      width: var(--mermaid-natural-width) !important;
+      max-width: none !important;
+    }
+  }
+}
+
 table {
   width: 100%;
   border-collapse: collapse;
