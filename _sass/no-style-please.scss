@@ -1,13 +1,23 @@
 // -------------- THEME SWITCHER -------------- //
 @mixin dark-appearance {
-  filter: invert(1);
-  img {
+  // 본문 래퍼(.page-content)에만 invert를 적용한다. #theme-toggle은
+  // .page-content의 형제라서, body에 filter를 걸던 기존 방식과 달리
+  // 필터 조상이 없어 position:fixed가 뷰포트 기준으로 동작한다(스크롤 추종).
+  background: black;
+
+  #theme-toggle { filter: invert(1); }
+
+  .page-content {
     filter: invert(1);
-    &.ioda { filter: invert(0); }
-  }
-  
-  .video-container {
-    filter: invert(1);
+
+    img {
+      filter: invert(1);
+      &.ioda { filter: invert(0); }
+    }
+
+    .video-container {
+      filter: invert(1);
+    }
   }
 }
 
