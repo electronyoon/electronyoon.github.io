@@ -8,18 +8,26 @@
   script.onload = function() {
     mermaid.initialize({ startOnLoad: false, theme: 'default' });
 
+    // gantt처럼 컨테이너 폭에 맞춰 배치되는 다이어그램이 모바일에서 뭉개지지 않도록,
+    // 렌더 동안은 화면 밖에서 데스크톱 본문 폭(.w = 640px)으로 강제해 배치시킨다.
+    // (flowchart/sequence는 내용 기반 폭이라 컨테이너 폭의 영향을 받지 않는다.)
+    const RENDER_WIDTH = '640px';
     document.querySelectorAll('pre > code.language-mermaid').forEach(function(code) {
       const pre = code.parentElement;
       const div = document.createElement('div');
       div.className = 'mermaid';
+      // 소스에 '%% compact' 주석이 있으면 모바일에서 조금 축소해 표시한다.
+      if (code.textContent.includes('%% compact')) div.classList.add('mmd-compact');
       div.textContent = code.textContent;
+      div.style.cssText = 'position:absolute; left:-99999px; top:0; width:' + RENDER_WIDTH + ';';
       pre.replaceWith(div);
     });
 
     mermaid.run().then(function() {
-      // 모바일에서 원래 크기로 그린 뒤 가로 스크롤할 수 있도록,
-      // mermaid가 SVG에 남긴 자연 폭을 CSS 변수로 노출한다.
+      // 배치가 끝나면 원래 흐름으로 되돌리고, mermaid가 SVG에 남긴 배치 폭을
+      // CSS 변수로 노출한다. 모바일에서는 이 폭으로 그린 뒤 가로 스크롤한다.
       document.querySelectorAll('div.mermaid').forEach(function(div) {
+        div.style.cssText = '';
         const svg = div.querySelector('svg');
         if (!svg) return;
         let w = svg.style.maxWidth;
