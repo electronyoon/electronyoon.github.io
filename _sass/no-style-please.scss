@@ -104,6 +104,12 @@ hr {
       width: var(--mermaid-natural-width) !important;
       max-width: none !important;
     }
+
+    // '%% compact' 표시가 있는 다이어그램(3장 판정 흐름도, reference의 시퀀스
+    // 다이어그램)은 글씨가 커서 모바일에서만 50%로 축소한다.
+    &.mmd-compact svg {
+      width: calc(var(--mermaid-natural-width) * 0.5) !important;
+    }
   }
 }
 
