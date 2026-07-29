@@ -25,6 +25,14 @@ entries:
       show_more_text: More posts...
       show_more_url: archive-tech.html
 
+  - title: posts by category "work"
+    post_list:
+      limit: 5
+      category: work
+      show_more: true
+      show_more_text: More posts...
+      show_more_url: archive-work.html
+
   - title: posts by category "reviews"
     post_list:
       limit: 3
