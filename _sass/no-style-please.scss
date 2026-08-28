@@ -1,3 +1,11 @@
+@font-face {
+  font-family: "D2Coding Diagram";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("https://naver.github.io/d2-coding-font/fonts/D2Coding-Regular.woff2?v=1.3.3") format("woff2");
+}
+
 // -------------- THEME SWITCHER -------------- //
 @mixin dark-appearance {
   // 본문 래퍼(.page-content)에만 invert를 적용한다. #theme-toggle은
@@ -142,6 +150,22 @@ div.highlighter-rouge code {
   display: block;
   overflow-x: auto;
   padding: 1rem;
+}
+
+.ascii-diagram,
+.ascii-diagram code {
+  font-family: "D2Coding Diagram", monospace;
+  font-variant-ligatures: none;
+  font-kerning: none;
+  letter-spacing: 0;
+}
+
+.ascii-diagram code {
+  white-space: pre;
+  overflow-x: auto;
+  overflow-wrap: normal;
+  word-break: normal;
+  tab-size: 4;
 }
 
 blockquote {
