@@ -329,7 +329,7 @@ if (pctLofinPredictionComboCtx) {
   });
 }
 
-// 비교용 전체 모집단 예측 — UNKNOWN/OUTLIER는 보정하지 않고 현행 유지
+// 전체 모집단 하한 예측 — 유형 미상·소량 요청은 개선 없이 현행 유지
 const pctLofinPredictionAllComboCtx = document.getElementById('chart-pct-lofin-prediction-all-combo');
 if (pctLofinPredictionAllComboCtx) {
   const pctLabels = Array.from({ length: 99 }, (_, i) => `P${i + 1}`);
@@ -343,7 +343,7 @@ if (pctLofinPredictionAllComboCtx) {
       labels: pctLabels,
       datasets: [
         {
-          label: '7월 AS-IS (전체)',
+          label: '대조군(7월, 전체)',
           data: before,
           borderColor: 'rgb(255, 99, 132)',
           backgroundColor: 'rgba(255, 99, 132, 0.1)',
@@ -354,7 +354,7 @@ if (pctLofinPredictionAllComboCtx) {
           yAxisID: 'y',
         },
         {
-          label: 'UNKNOWN/OUTLIER 현행 유지 예측',
+          label: '실험군(7월 예측, 전체)',
           data: after,
           borderColor: 'rgb(54, 162, 235)',
           backgroundColor: 'rgba(54, 162, 235, 0.1)',
@@ -385,7 +385,7 @@ if (pctLofinPredictionAllComboCtx) {
         legend: { position: 'top' },
         title: {
           display: true,
-          text: '비교용 전체 모집단 예측 — UNKNOWN/OUTLIER 현행 유지',
+          text: '백분위수 응답시간 및 개선율 — 제외한 8.2%를 그대로 뒀을 때',
         },
         tooltip: {
           callbacks: {
