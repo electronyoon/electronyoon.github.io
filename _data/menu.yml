@@ -10,28 +10,25 @@ entries:
       - title: github
         url: https://github.com/electronyoon
 
-  - title: all posts
+  - title: posts by series "속도개선 시리즈"
     post_list:
-      limit: 5
-      show_more: true
-      show_more_text: More posts...
-      show_more_url: archive.html
-
-  - title: posts by category "tech"
-    post_list:
-      limit: 5
-      category: tech
-      show_more: true
-      show_more_text: More posts...
-      show_more_url: archive-tech.html
+      series: 속도개선
 
   - title: posts by category "work"
     post_list:
-      limit: 5
+      limit: 3
       category: work
       show_more: true
       show_more_text: More posts...
       show_more_url: archive-work.html
+
+  - title: posts by category "tech"
+    post_list:
+      limit: 3
+      category: tech
+      show_more: true
+      show_more_text: More posts...
+      show_more_url: archive-tech.html
 
   - title: posts by category "reviews"
     post_list:

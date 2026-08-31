@@ -80,35 +80,51 @@ li { margin: 0.4rem 0; }
 
 ul, ol { padding-left: 1.15em; }
 
-// -------------- HOME: 구조 비교용 (A/B), 방향 정해지면 삭제 -------------- //
-// 이 블록 + _layouts/home.html의 토글 스크립트 + _includes/home_series.html
-.variant-switch {
-  margin: 1.5rem 0;
-
-  a {
-    margin-right: 1rem;
-    color: inherit;
-    text-decoration: none;
-  }
-
-  a[aria-current="true"] { text-decoration: underline; }
+// 게시글 목록: 날짜는 제목 뒤, 회색, 작게. 한 덩어리로 묶어 하이픈에서 줄바꿈되지 않게.
+// 제목과의 간격은 HTML 공백 대신 여기서 — 일반 공백의 1/3~1/2 정도만.
+.post-date {
+  color: gray;
+  font-size: 0.7em;
+  white-space: nowrap;
+  margin-left: 0.35em;
 }
 
-.series-block { margin: 1.75rem 0; }
+// 홈에서 게시글 링크만 밑줄 제거 (info의 linkedin/github는 유지)
+.home-menu .post-list a { text-decoration: none; }
 
-.series-title { margin: 0 0 0.3rem; }
+// 홈 최상위 항목(info, posts by series, posts by category ...) 사이 여백 + 라벨 볼드
+.home-menu > ul > li { margin: 1.6rem 0; font-weight: bold; }
+.home-menu > ul > li ul { font-weight: normal; }
 
-.series-item { margin: 0 0 0.2rem 1.3em; }
-
-.standalone-item {
-  margin: 0.3rem 0;
-
-  .post-date {
-    color: gray;
-    font-size: 0.85em;
-  }
+// 시리즈 항목의 root bullet: Claude Code "생각 중" 커서 애니메이션 재현.
+// 프레임 · ✢ ✳ ✶ ✻ ✽ (U+00B7 U+2722 U+2733 U+2736 U+273B U+273D), 120ms/프레임,
+// 끝까지 갔다가 되돌아오는 bounce(reverseMirror) → 10프레임 * 120ms = 1.2s 루프.
+.home-menu > ul > li.series {
+  list-style: none;
 }
-// -------------------------------------------------------------------------- //
+.home-menu > ul > li.series::before {
+  content: "\273D";           // 애니메이션 미지원/reduced-motion 시 이 글리프로 고정
+  display: inline-block;
+  width: 1.15em;              // ul padding-left와 동일 — 마커를 gutter에 앉힌다
+  margin-left: -1.15em;
+  text-align: center;
+  animation: series-cursor 1.2s step-end infinite;
+}
+@keyframes series-cursor {
+  0%  { content: "\00B7"; }   // ·
+  10% { content: "\2722"; }   // ✢
+  20% { content: "\2733"; }   // ✳
+  30% { content: "\2736"; }   // ✶
+  40% { content: "\273B"; }   // ✻
+  50% { content: "\273D"; }   // ✽
+  60% { content: "\273B"; }   // ✻
+  70% { content: "\2736"; }   // ✶
+  80% { content: "\2733"; }   // ✳
+  90% { content: "\2722"; }   // ✢
+}
+@media (prefers-reduced-motion: reduce) {
+  .home-menu > ul > li.series::before { animation: none; }
+}
 
 *:target {
   animation: target-fade 3s ease-out;

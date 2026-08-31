@@ -1,16 +1,16 @@
 <ul>
   {%-for item in include.collection-%}
-    <li>
+    <li{% if item.post_list.series %} class="series"{% endif %}>
     {%- if item.url -%}
       <a href="{{ item.url }}">{{ item.title }}</a>
     {%- else -%}
       {{ item.title }}
     {%- endif -%}
-    </li>
 
     {%-if item.post_list-%}
       {%
         include post_list.html
+          series=item.post_list.series
           category=item.post_list.category
           limit=item.post_list.limit
           show_more=item.post_list.show_more
@@ -22,5 +22,6 @@
     {%-if item.entries-%}
       {%-include menu_item.html collection=item.entries-%}
     {%-endif-%}
+    </li>
   {%-endfor-%}
 </ul>

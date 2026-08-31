@@ -8,42 +8,9 @@ layout: default
   {%-endif-%}
 </header>
 
-<!-- 임시: 홈 구조 A/B 비교용 스캐폴딩. 방향 정해지면 이 블록과 진 쪽 variant를 지운다. -->
-<p class="variant-switch">
-  variant »
-  <a href="#" data-variant-btn="current">[a] 현재 구조</a>
-  <a href="#" data-variant-btn="series">[b] 시리즈 구조</a>
-</p>
-
-<div data-variant-panel="current" hidden>
+<div class="home-menu">
   {%-include menu_item.html collection=site.data.menu.entries-%}
 </div>
-<div data-variant-panel="series" hidden>
-  {%-include home_series.html-%}
-</div>
-
-<script>
-(function () {
-  var KEY = "home-variant";
-  var panels = document.querySelectorAll("[data-variant-panel]");
-  var btns = document.querySelectorAll("[data-variant-btn]");
-
-  function apply(v) {
-    panels.forEach(function (p) { p.hidden = p.dataset.variantPanel !== v; });
-    btns.forEach(function (b) { b.setAttribute("aria-current", b.dataset.variantBtn === v); });
-  }
-
-  apply(localStorage.getItem(KEY) || "series");
-
-  btns.forEach(function (b) {
-    b.addEventListener("click", function (e) {
-      e.preventDefault();
-      localStorage.setItem(KEY, b.dataset.variantBtn);
-      apply(b.dataset.variantBtn);
-    });
-  });
-})();
-</script>
 
 {{ content }}
 
