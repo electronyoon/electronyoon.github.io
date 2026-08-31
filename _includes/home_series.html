@@ -1,0 +1,21 @@
+{%- assign grouped = site.posts | group_by: "series" -%}
+{%- assign standalone = site.posts | where_exp: "post", "post.series == nil" -%}
+
+<div class="series-home">
+  {%- for group in grouped -%}
+    {%- if group.name and group.name != "" -%}
+      <div class="series-block">
+        <p class="series-title">✲ {{ group.name }}</p>
+        {%- for post in group.items -%}
+          <p class="series-item">╰ <a href="{{ post.url | relative_url }}">{{ post.title }}</a></p>
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+  {%- endfor -%}
+
+  <div class="series-block">
+    {%- for post in standalone -%}
+      <p class="standalone-item">· <a href="{{ post.url | relative_url }}">{{ post.title }}</a> <span class="post-date">{{ post.date | date: site.theme_config.date_format }}</span></p>
+    {%- endfor -%}
+  </div>
+</div>
