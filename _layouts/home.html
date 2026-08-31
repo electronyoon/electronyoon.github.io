@@ -8,7 +8,9 @@ layout: default
   {%-endif-%}
 </header>
 
-{%-include menu_item.html collection=site.data.menu.entries-%}
+<div class="home-menu">
+  {%-include menu_item.html collection=site.data.menu.entries-%}
+</div>
 
 {{ content }}
 

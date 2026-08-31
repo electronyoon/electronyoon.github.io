@@ -1,5 +1,8 @@
-{%-if include.category-%}
-  {%-assign posts = site.categories[include.category]-%}  
+{%-if include.series-%}
+  {%-assign posts = site.posts | where: "series", include.series-%}
+{%-elsif include.category-%}
+  {%-comment-%}시리즈로 묶인 글은 시리즈 목록에만 노출하고 카테고리 목록에서는 뺀다{%-endcomment-%}
+  {%-assign posts = site.categories[include.category] | where_exp: "post", "post.series == nil"-%}
 {%-else-%}
   {%-assign posts = site.posts-%}
 {%-endif-%}
@@ -11,11 +14,10 @@
 {%-endif-%}
 
 {%- if posts.size > 0 -%}
-  <ul>
+  <ul class="post-list">
     {%- for post in posts limit: include.limit -%}
         <li>
-          <span>{{- post.date | date: site.theme_config.date_format -}}</span>
-          <a href="{{ post.url | relative_url }}">{{ post.title | downcase }}</a>
+          <a href="{{ post.url | relative_url }}">{{ post.title | downcase }}</a>{%- comment -%}제목-날짜 사이 공백 제거{%- endcomment -%}<span class="post-date">{{- post.date | date: site.theme_config.date_format -}}</span>
         </li>
     {%- endfor -%}
     {%- if include.show_more and limit_exceeded -%}
