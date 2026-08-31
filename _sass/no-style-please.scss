@@ -78,6 +78,38 @@ p { margin: 1rem 0; }
 
 li { margin: 0.4rem 0; }
 
+ul, ol { padding-left: 1.15em; }
+
+// -------------- HOME: 구조 비교용 (A/B), 방향 정해지면 삭제 -------------- //
+// 이 블록 + _layouts/home.html의 토글 스크립트 + _includes/home_series.html
+.variant-switch {
+  margin: 1.5rem 0;
+
+  a {
+    margin-right: 1rem;
+    color: inherit;
+    text-decoration: none;
+  }
+
+  a[aria-current="true"] { text-decoration: underline; }
+}
+
+.series-block { margin: 1.75rem 0; }
+
+.series-title { margin: 0 0 0.3rem; }
+
+.series-item { margin: 0 0 0.2rem 1.3em; }
+
+.standalone-item {
+  margin: 0.3rem 0;
+
+  .post-date {
+    color: gray;
+    font-size: 0.85em;
+  }
+}
+// -------------------------------------------------------------------------- //
+
 *:target {
   animation: target-fade 3s ease-out;
 }
