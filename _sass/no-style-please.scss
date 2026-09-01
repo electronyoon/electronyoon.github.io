@@ -51,7 +51,10 @@ body[a="dark"] { @include dark-appearance; }
   cursor: pointer;
   font-size: 1.2rem;
   padding: 0.2rem;
+  line-height: 0;
   z-index: 100;
+
+  svg { display: block; width: 20px; height: 20px; }
 }
 
 // bg color is also needed in html in order to
