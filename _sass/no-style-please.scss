@@ -26,6 +26,12 @@
     .video-container {
       filter: invert(1);
     }
+
+    // 시리즈 라인의 당근색(#da7756)이 .page-content invert에 뒤집히지 않도록,
+    // img와 같은 방식으로 한 번 더 상쇄한다(짝수 번 → 원본색). 하위 글 목록은
+    // 다시 한 번 상쇄해 다크 기본 상태로 되돌린다.
+    .home-menu > ul > li.series { filter: invert(1); }
+    .home-menu > ul > li.series > ul { filter: invert(1); }
   }
 }
 
@@ -96,33 +102,45 @@ ul, ol { padding-left: 1.15em; }
 .home-menu > ul > li { margin: 1.6rem 0; font-weight: bold; }
 .home-menu > ul > li ul { font-weight: normal; }
 
-// 시리즈 항목의 root bullet: Claude Code "생각 중" 커서 애니메이션 재현.
-// 프레임 · ✢ ✳ ✶ ✻ ✽ (U+00B7 U+2722 U+2733 U+2736 U+273B U+273D), 120ms/프레임,
-// 끝까지 갔다가 되돌아오는 bounce(reverseMirror) → 10프레임 * 120ms = 1.2s 루프.
+// 시리즈 라인 = Claude Code 액센트 색(#da7756) + "생각 중" 커서 응용 + 펄스.
+//
+// series-cursor: CC의 별표 세트 [· ✢ ✳ ✶ ✻ ✽] (U+00B7 U+2722 U+2733 U+2736 U+273B
+//   U+273D)를 왕복. 단 CC 소스는 dt+dt.toReversed()로 양끝(·, ✽)이 2프레임씩인
+//   12프레임인데, 여기선 별표에서 점으로 수렴했다 돌아오는 모양이 낫다고 판단해
+//   별표를 양끝(0/100%)에, 점을 가운데(50%)에 두는 10프레임으로 위상만 잡았다.
+//   120ms/프레임 × 10 = 1.2s, step-end로 딱딱 끊어 표시.
+// series-blink: 라벨과 커서가 함께 살짝 흐려졌다 돌아오는 펄스. color를 애니메이션해
+//   li.series를 상속하는 텍스트(라벨 + ::before)만 흐려지고, 하위 글 목록은 제외.
+//   (CC도 raised-cosine로 색을 펄스하므로 방향은 맞다.)
 .home-menu > ul > li.series {
+  color: #da7756;
   list-style: none;
+  animation: series-blink 2s ease-in-out infinite;
 }
+.home-menu > ul > li.series > ul { color: black; }
+
 .home-menu > ul > li.series::before {
-  content: "\273D";           // 애니메이션 미지원/reduced-motion 시 이 글리프로 고정
+  content: "\273D";           // reduced-motion 정지 시 표시 (커서의 가장 큰 프레임)
   display: inline-block;
   width: 1.15em;              // ul padding-left와 동일 — 마커를 gutter에 앉힌다
   margin-left: -1.15em;
   text-align: center;
-  animation: series-cursor 1.2s step-end infinite;
+  animation: series-cursor 2s step-end infinite;
 }
 @keyframes series-cursor {
-  0%  { content: "\00B7"; }   // ·
-  10% { content: "\2722"; }   // ✢
-  20% { content: "\2733"; }   // ✳
-  30% { content: "\2736"; }   // ✶
-  40% { content: "\273B"; }   // ✻
-  50% { content: "\273D"; }   // ✽
-  60% { content: "\273B"; }   // ✻
-  70% { content: "\2736"; }   // ✶
-  80% { content: "\2733"; }   // ✳
-  90% { content: "\2722"; }   // ✢
+  0%, 100% { content: "\273D"; }   // ✽
+  10%, 90% { content: "\273B"; }   // ✻
+  20%, 80% { content: "\2736"; }   // ✶
+  30%, 70% { content: "\2733"; }   // ✳
+  40%, 60% { content: "\2722"; }   // ✢
+  50%      { content: "\00B7"; }   // ·
+}
+@keyframes series-blink {
+  0%, 100% { color: #da7756; }
+  50%      { color: rgba(218, 119, 86, 0.7); }
 }
 @media (prefers-reduced-motion: reduce) {
+  .home-menu > ul > li.series,
   .home-menu > ul > li.series::before { animation: none; }
 }
 
