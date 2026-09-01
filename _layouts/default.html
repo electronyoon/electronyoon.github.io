@@ -14,7 +14,12 @@
         localStorage.setItem('theme', next);
       }
     </script>
-    <button id="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme" style="position:fixed;top:1rem;right:1rem;background:none;border:none;cursor:pointer;font-size:1.2rem;padding:0.2rem;z-index:100;">◐</button>
+    <button id="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme" style="position:fixed;top:1rem;right:1rem;background:none;border:none;cursor:pointer;font-size:1.2rem;padding:0.2rem;z-index:100;line-height:0;">
+      <svg width="20" height="20" viewBox="0 0 16 16" aria-hidden="true">
+        <circle cx="8" cy="8" r="6.5" fill="none" stroke="currentColor" stroke-width="1.5"/>
+        <path d="M8 1.5A6.5 6.5 0 0 1 8 14.5Z" fill="currentColor"/>
+      </svg>
+    </button>
     <main class="page-content" aria-label="Content">
       <div class="w">
         {{ content }}
