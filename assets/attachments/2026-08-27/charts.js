@@ -118,7 +118,7 @@ if (lineageCtx) {
   });
 }
 
-// 배포 전 8월 한 달과 배포 다음 날(9/2)의 응답시간(ms) + 개선율(%) 오버레이
+// 통합본 — 응답시간(ms) + 개선율(%) 오버레이, dual Y축
 const pctLofinComboCtx = document.getElementById('chart-pct-lofin-combo');
 if (pctLofinComboCtx) {
   const pctLabels = Array.from({ length: 99 }, (_, i) => `P${i + 1}`);
@@ -143,7 +143,7 @@ if (pctLofinComboCtx) {
           yAxisID: 'y',
         },
         {
-          label: '배포 후(9/2 하루)',
+          label: '9/2',
           data: after,
           borderColor: 'rgb(54, 162, 235)',
           backgroundColor: 'rgba(54, 162, 235, 0.1)',
@@ -208,7 +208,7 @@ if (pctLofinComboCtx) {
           type: 'linear',
           position: 'left',
           title: { display: false },
-          min: -100,
+          min: 0,
           max: 100,
           ticks: {
             stepSize: 20,
