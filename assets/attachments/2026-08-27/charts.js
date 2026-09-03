@@ -75,7 +75,7 @@ if (lineageCtx) {
         legend: { display: false },
         title: {
           display: true,
-          text: '선분이력 예시 — 세부사업별 세출현황 API',
+          text: '선분이력 예시',
         },
         tooltip: {
           callbacks: {
@@ -143,7 +143,7 @@ if (pctLofinComboCtx) {
           yAxisID: 'y',
         },
         {
-          label: '9/2',
+          label: '배포 후(9/2)',
           data: after,
           borderColor: 'rgb(54, 162, 235)',
           backgroundColor: 'rgba(54, 162, 235, 0.1)',
@@ -174,7 +174,7 @@ if (pctLofinComboCtx) {
         legend: { position: 'top' },
         title: {
           display: true,
-          text: '백분위수 응답시간 및 개선율 — 세부사업별 세출현황 API',
+          text: '백분위수 응답시간 및 개선율',
         },
         tooltip: {
           callbacks: {
