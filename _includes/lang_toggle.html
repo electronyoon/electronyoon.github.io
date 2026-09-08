@@ -1,0 +1,17 @@
+{%- comment -%}
+  고정 언어 전환 버튼(테마 토글 옆). 빌드 시점에 대상 URL·라벨을 계산한다.
+  - 번역본이 있는 글: 짝 언어 글로 바로 이동. 라벨 = 대상 언어.
+  - 그 외(홈/아카이브/미번역 글): 한국어 화면이면 /en.html("EN"), 영문 화면이면 /("한국어").
+{%- endcomment -%}
+{%- comment -%}대상 언어(현재 화면의 반대쪽)를 정한다{%- endcomment -%}
+{%- if page.lang == "en" -%}{%- assign lt_target = "ko" -%}{%- else -%}{%- assign lt_target = "en" -%}{%- endif -%}
+{%- assign lt_label = site.data.languages[lt_target] -%}
+{%- unless lt_label -%}{%- assign lt_label = lt_target | upcase -%}{%- endunless -%}
+
+{%- comment -%}대상 URL: 짝 번역본이 있으면 그리로, 없으면 그 언어의 홈으로{%- endcomment -%}
+{%- if lt_target == "en" -%}{%- assign lt_href = "/en.html" -%}{%- else -%}{%- assign lt_href = "/" -%}{%- endif -%}
+{%- if page.ref -%}
+  {%- assign lt_pair = site.posts | where: "ref", page.ref | where: "lang", lt_target | first -%}
+  {%- if lt_pair -%}{%- assign lt_href = lt_pair.url -%}{%- endif -%}
+{%- endif -%}
+<a class="lang-toggle" href="{{ lt_href | relative_url }}" hreflang="{{ lt_target }}" aria-label="Switch language">{{ lt_label }}</a>

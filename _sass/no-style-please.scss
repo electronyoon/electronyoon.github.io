@@ -105,13 +105,19 @@ ul, ol { padding-left: 1.15em; }
   font-weight: normal;
 }
 
-// 글 상단 언어 전환 줄(한국어 · English). 제목 아래, 작고 흐리게.
-.post-langs {
-  margin: 0.3rem 0 0;
-  font-size: 0.8em;
+// 고정 언어 전환 버튼. 테마 토글 왼쪽에 나란히. 같은 톤(회색·작게·밑줄 없음).
+.lang-toggle {
+  position: fixed;
+  top: 1rem;
+  right: 2.6rem;
+  z-index: 100;
+  font-size: 0.8rem;
+  line-height: 1;
+  padding: 0.2rem;
   color: gray;
+  text-decoration: none;
 }
-.post-langs span { color: gray; }
+.lang-toggle:hover { color: inherit; }
 
 // 홈에서 게시글 링크만 밑줄 제거 (info의 linkedin/github는 유지)
 .home-menu .post-list a { text-decoration: none; }

@@ -1,5 +1,7 @@
 {%-if include.series-%}
   {%-assign posts = site.posts | where: "series", include.series-%}
+{%-elsif include.lang-%}
+  {%-assign posts = site.posts | where: "lang", include.lang-%}
 {%-elsif include.category-%}
   {%-comment-%}시리즈로 묶인 글은 시리즈 목록에만 노출하고 카테고리 목록에서는 뺀다{%-endcomment-%}
   {%-assign posts = site.categories[include.category] | where_exp: "post", "post.series == nil"-%}
