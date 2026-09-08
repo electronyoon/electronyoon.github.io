@@ -10,6 +10,45 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 });
 
+const chartMessages = {
+    ko: {
+        before: '동기 로딩(개선 전)',
+        after: '비동기 로딩(개선 후)',
+        percentileResponseTitle: '백분위수별 응답 시간 비교',
+        keyPercentileTitle: '핵심 백분위수 비교',
+        responseMsLog: '응답 시간 (ms, log scale)',
+        percentile: '백분위수',
+        histogramTitle: '응답시간별 분포 (Histogram)',
+        frequencyLog: '빈도 (Log Scale)',
+        responseMs: '응답 시간 (ms)',
+        count: '건'
+    },
+    en: {
+        before: 'Synchronous loading (before)',
+        after: 'Asynchronous loading (after)',
+        percentileResponseTitle: 'Response time by percentile',
+        keyPercentileTitle: 'Key percentile comparison',
+        responseMsLog: 'Response time (ms, log scale)',
+        percentile: 'Percentile',
+        histogramTitle: 'Response-time distribution (histogram)',
+        frequencyLog: 'Frequency (log scale)',
+        responseMs: 'Response time (ms)',
+        count: ' requests'
+    }
+};
+
+const chartMessageKeys = Object.keys(chartMessages.ko);
+for (const locale of Object.keys(chartMessages)) {
+    const missing = chartMessageKeys.filter((key) => !(key in chartMessages[locale]));
+    const extra = Object.keys(chartMessages[locale]).filter((key) => !chartMessageKeys.includes(key));
+    if (missing.length || extra.length) {
+        throw new Error(`Invalid chart translations for ${locale}: missing [${missing.join(', ')}], extra [${extra.join(', ')}]`);
+    }
+}
+
+const chartLocale = (document.documentElement.lang || 'ko').toLowerCase().split('-')[0];
+const t = (key) => chartMessages[chartLocale === 'en' ? 'en' : 'ko'][key];
+
 function initAllCharts() {
     if (document.getElementById('percentileChart')) initPercentileChart();
     if (document.getElementById('boxPlotChart')) initBoxPlotChart();
@@ -79,14 +118,14 @@ export const initPercentileChart = () => {
             labels: percentileLabels,
             datasets: [
                 {
-                    label: '동기 로딩(개선 전)',
+                    label: t('before'),
                     data: stats.asis.percentiles,
                     borderColor: 'rgb(255, 99, 132)',
                     backgroundColor: 'rgba(255, 99, 132, 0.1)',
                     fill: true, tension: 0.3, pointRadius: 0
                 },
                 {
-                    label: '비동기 로딩(개선 후)',
+                    label: t('after'),
                     data: stats.tobe.percentiles,
                     borderColor: 'rgb(54, 162, 235)',
                     backgroundColor: 'rgba(54, 162, 235, 0.1)',
@@ -98,7 +137,7 @@ export const initPercentileChart = () => {
             responsive: true,
             interaction: { intersect: false, mode: 'index' },
             plugins: {
-                title: { display: true, text: '백분위수별 응답 시간 비교', font: { size: 16 } },
+                title: { display: true, text: t('percentileResponseTitle'), font: { size: 16 } },
                 tooltip: {
                     callbacks: {
                         label: ctx => `${ctx.dataset.label}: ${ctx.parsed.y.toFixed(2)}ms`
@@ -108,11 +147,11 @@ export const initPercentileChart = () => {
             scales: {
                 y: {
                     type: 'logarithmic',
-                    title: { display: true, text: '응답 시간 (ms, log scale)' },
+                    title: { display: true, text: t('responseMsLog') },
                     min: 100
                 },
                 x: {
-                    title: { display: true, text: '백분위수' },
+                    title: { display: true, text: t('percentile') },
                     ticks: {
                         autoSkip: false,
                         callback: function (value, index) {
@@ -143,14 +182,14 @@ export const initBoxPlotChart = () => {
             labels: keyPercentiles,
             datasets: [
                 {
-                    label: '동기 로딩(개선 전)',
+                    label: t('before'),
                     data: asisValues,
                     backgroundColor: 'rgba(255, 99, 132, 0.7)',
                     borderColor: 'rgb(255, 99, 132)',
                     borderWidth: 1
                 },
                 {
-                    label: '비동기 로딩(개선 후)',
+                    label: t('after'),
                     data: tobeValues,
                     backgroundColor: 'rgba(54, 162, 235, 0.7)',
                     borderColor: 'rgb(54, 162, 235)',
@@ -161,14 +200,14 @@ export const initBoxPlotChart = () => {
         options: {
             responsive: true,
             plugins: {
-                title: { display: true, text: '핵심 백분위수 비교', font: { size: 16 } },
+                title: { display: true, text: t('keyPercentileTitle'), font: { size: 16 } },
                 tooltip: {
                     callbacks: { label: ctx => `${ctx.dataset.label}: ${ctx.parsed.y.toFixed(2)}ms` }
                 }
             },
             scales: {
-                y: { type: 'logarithmic', title: { display: true, text: '응답 시간 (ms, log scale)' } },
-                x: { title: { display: true, text: '백분위수' } }
+                y: { type: 'logarithmic', title: { display: true, text: t('responseMsLog') } },
+                x: { title: { display: true, text: t('percentile') } }
             }
         }
     });
@@ -184,14 +223,14 @@ export const initHistogramChart = () => {
             labels: binLabels,
             datasets: [
                 {
-                    label: '동기 로딩(개선 전)',
+                    label: t('before'),
                     data: stats.asis.histogram,
                     backgroundColor: 'rgba(255, 99, 132, 0.5)',
                     borderColor: 'rgb(255, 99, 132)',
                     borderWidth: 1
                 },
                 {
-                    label: '비동기 로딩(개선 후)',
+                    label: t('after'),
                     data: stats.tobe.histogram,
                     backgroundColor: 'rgba(54, 162, 235, 0.5)',
                     borderColor: 'rgb(54, 162, 235)',
@@ -208,23 +247,23 @@ export const initHistogramChart = () => {
             plugins: {
                 title: {
                     display: true,
-                    text: '응답시간별 분포 (Histogram)',
+                    text: t('histogramTitle'),
                     font: { size: 16 }
                 },
                 tooltip: {
                     callbacks: {
-                        label: ctx => `${ctx.dataset.label}: ${ctx.parsed.y}건`
+                        label: ctx => `${ctx.dataset.label}: ${ctx.parsed.y}${t('count')}`
                     }
                 }
             },
             scales: {
                 y: {
                     type: 'logarithmic',
-                    title: { display: true, text: '빈도 (Log Scale)' },
+                    title: { display: true, text: t('frequencyLog') },
                     min: 1
                 },
                 x: {
-                    title: { display: true, text: '응답 시간 (ms)' },
+                    title: { display: true, text: t('responseMs') },
                     ticks: {
                         maxTicksLimit: 10,
                         autoSkip: true
