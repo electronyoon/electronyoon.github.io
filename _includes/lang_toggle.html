@@ -1,0 +1,22 @@
+{%- comment -%}
+  고정 언어 전환 버튼(테마 토글 옆). 빌드 시점에 대상 URL과 SVG의 언어 코드를 계산한다.
+  - 번역본이 있는 글: 짝 언어 글로 바로 이동.
+  - 그 외(홈/아카이브/미번역 글): 한국어 화면이면 /en, 영문 화면이면 /.
+{%- endcomment -%}
+{%- comment -%}대상 언어(현재 화면의 반대쪽)를 정한다{%- endcomment -%}
+{%- if page.lang == "en" -%}{%- assign lt_target = "ko" -%}{%- else -%}{%- assign lt_target = "en" -%}{%- endif -%}
+{%- assign lt_code = lt_target | upcase -%}
+{%- assign lt_label = site.data.languages[lt_target] | default: lt_code -%}
+
+{%- comment -%}대상 URL: 짝 번역본이 있으면 그리로, 없으면 그 언어의 홈으로{%- endcomment -%}
+{%- if lt_target == "en" -%}{%- assign lt_href = "/en" -%}{%- else -%}{%- assign lt_href = "/" -%}{%- endif -%}
+{%- if page.ref -%}
+  {%- assign lt_pair = site.posts | where: "ref", page.ref | where: "lang", lt_target | first -%}
+  {%- if lt_pair -%}{%- assign lt_href = lt_pair.url -%}{%- endif -%}
+{%- endif -%}
+<a class="lang-toggle" href="{{ lt_href | relative_url }}" hreflang="{{ lt_target }}" aria-label="Switch to {{ lt_label }}">
+  <svg width="24" height="20" viewBox="0 0 24 20" aria-hidden="true">
+    <rect x="1.25" y="1.25" width="21.5" height="17.5" rx="2.5" fill="none" stroke="currentColor" stroke-width="1.5"/>
+    <text x="12" y="11" fill="currentColor" text-anchor="middle" dominant-baseline="middle" font-family="monospace" font-size="10" font-weight="700">{{ lt_code }}</text>
+  </svg>
+</a>

@@ -2,6 +2,65 @@ if (typeof ChartDataLabels !== 'undefined') {
   Chart.register(ChartDataLabels);
 }
 
+const chartMessages = {
+  ko: {
+    lineageRowA: '1인가구 지원체계 구축, 총 지출액 1_000',
+    lineageRowBClosed: '다산콜센터 출연금, 총 지출액 2_000',
+    lineageRowBOpen: '120다산콜재단 출연금, 총 지출액 2_000',
+    lineageRowCClosed: '119항공대 운영, 총 지출액 3_000',
+    lineageRowCOpen: '119항공대 운영, 총 지출액 5_000',
+    validPeriod: '유효기간',
+    lineageTitle: '선분이력 예시',
+    beforeAug: '배포 전(8월)',
+    afterSep: '배포 후(9/2)',
+    improvement: '개선율 (%)',
+    percentileResponseTitle: '백분위수 응답시간 및 개선율',
+    percentile: '백분위수',
+    responseMs: '응답 시간 (ms)',
+    controlJuly: '대조군(7월)',
+    experimentJulyPrediction: '실험군(7월 예측)',
+    predictedImprovement: '예측 개선율 (%)',
+    predictionTitle: '백분위수 응답시간 및 개선율 — 배포 전 조건부 예측',
+    controlJulyAll: '대조군(7월, 전체)',
+    experimentJulyPredictionAll: '실험군(7월 예측, 전체)',
+    allPredictionTitle: '백분위수 응답시간 및 개선율 — 제외한 8.2%를 그대로 뒀을 때'
+  },
+  en: {
+    lineageRowA: 'Single-person household support system, total expenditure 1_000',
+    lineageRowBClosed: 'Dasan Call Center contribution, total expenditure 2_000',
+    lineageRowBOpen: '120 Dasan Call Foundation contribution, total expenditure 2_000',
+    lineageRowCClosed: '119 Air Squadron operation, total expenditure 3_000',
+    lineageRowCOpen: '119 Air Squadron operation, total expenditure 5_000',
+    validPeriod: 'Validity period',
+    lineageTitle: 'Valid-time history example',
+    beforeAug: 'Before deployment (August)',
+    afterSep: 'After deployment (September 2)',
+    improvement: 'Improvement (%)',
+    percentileResponseTitle: 'Response time and improvement by percentile',
+    percentile: 'Percentile',
+    responseMs: 'Response time (ms)',
+    controlJuly: 'Control group (July)',
+    experimentJulyPrediction: 'Experimental group (July prediction)',
+    predictedImprovement: 'Predicted improvement (%)',
+    predictionTitle: 'Response time and improvement by percentile — conditional pre-deployment prediction',
+    controlJulyAll: 'Control group (July, all)',
+    experimentJulyPredictionAll: 'Experimental group (July prediction, all)',
+    allPredictionTitle: 'Response time and improvement by percentile — keeping the excluded 8.2% unchanged'
+  }
+};
+
+const chartMessageKeys = Object.keys(chartMessages.ko);
+for (const locale of Object.keys(chartMessages)) {
+  const missing = chartMessageKeys.filter((key) => !(key in chartMessages[locale]));
+  const extra = Object.keys(chartMessages[locale]).filter((key) => !chartMessageKeys.includes(key));
+  if (missing.length || extra.length) {
+    throw new Error(`Invalid chart translations for ${locale}: missing [${missing.join(', ')}], extra [${extra.join(', ')}]`);
+  }
+}
+
+const chartLocale = (document.documentElement.lang || 'ko').toLowerCase().split('-')[0];
+const t = (key) => chartMessages[chartLocale === 'en' ? 'en' : 'ko'][key];
+
 // 선분이력 개념도 — 예시 사업 두 건의 유효기간 구간을 가로 막대로 표현
 const lineageCtx = document.getElementById('chart-lineage-lofin');
 if (lineageCtx) {
@@ -9,11 +68,11 @@ if (lineageCtx) {
   const monthOffsets = [1, 60, 135, 180, 238, 365];
 
   const rows = [
-    { label: '1인가구 지원체계 구축, 총 지출액 1_000', range: [1, 180], project: 'A', status: 'closed' },
-    { label: '다산콜센터 출연금, 총 지출액 2_000', range: [1, 135], project: 'B', status: 'closed' },
-    { label: '120다산콜재단 출연금, 총 지출액 2_000', range: [136, 365], project: 'B', status: 'open' },
-    { label: '119항공대 운영, 총 지출액 3_000', range: [1, 180], project: 'C', status: 'closed' },
-    { label: '119항공대 운영, 총 지출액 5_000', range: [181, 365], project: 'C', status: 'open' },
+    { label: t('lineageRowA'), range: [1, 180], project: 'A', status: 'closed' },
+    { label: t('lineageRowBClosed'), range: [1, 135], project: 'B', status: 'closed' },
+    { label: t('lineageRowBOpen'), range: [136, 365], project: 'B', status: 'open' },
+    { label: t('lineageRowCClosed'), range: [1, 180], project: 'C', status: 'closed' },
+    { label: t('lineageRowCOpen'), range: [181, 365], project: 'C', status: 'open' },
   ];
 
   const projectColor = {
@@ -55,7 +114,7 @@ if (lineageCtx) {
       labels: rows.map((r) => r.label),
       datasets: [
         {
-          label: '유효기간',
+          label: t('validPeriod'),
           data: rows.map((r) => r.range),
           backgroundColor: rows.map((r) => projectColor[r.project].bg),
           borderColor: rows.map((r) => projectColor[r.project].border),
@@ -75,13 +134,13 @@ if (lineageCtx) {
         legend: { display: false },
         title: {
           display: true,
-          text: '선분이력 예시',
+          text: t('lineageTitle'),
         },
         tooltip: {
           callbacks: {
             label: (ctx) => {
               const r = rows[ctx.dataIndex];
-              return `유효기간: ${formatDate(r.range[0])} ~ ${formatDate(r.range[1])}`;
+              return `${t('validPeriod')}: ${formatDate(r.range[0])} ~ ${formatDate(r.range[1])}`;
             },
           },
         },
@@ -132,7 +191,7 @@ if (pctLofinComboCtx) {
       labels: pctLabels,
       datasets: [
         {
-          label: '배포 전(8월)',
+          label: t('beforeAug'),
           data: before,
           borderColor: 'rgb(255, 99, 132)',
           backgroundColor: 'rgba(255, 99, 132, 0.1)',
@@ -143,7 +202,7 @@ if (pctLofinComboCtx) {
           yAxisID: 'y',
         },
         {
-          label: '배포 후(9/2)',
+          label: t('afterSep'),
           data: after,
           borderColor: 'rgb(54, 162, 235)',
           backgroundColor: 'rgba(54, 162, 235, 0.1)',
@@ -154,7 +213,7 @@ if (pctLofinComboCtx) {
           yAxisID: 'y',
         },
         {
-          label: '개선율 (%)',
+          label: t('improvement'),
           data: improve,
           borderColor: 'rgb(40, 167, 69)',
           backgroundColor: 'rgba(40, 167, 69, 0.1)',
@@ -174,7 +233,7 @@ if (pctLofinComboCtx) {
         legend: { position: 'top' },
         title: {
           display: true,
-          text: '백분위수 응답시간 및 개선율',
+          text: t('percentileResponseTitle'),
         },
         tooltip: {
           callbacks: {
@@ -188,7 +247,7 @@ if (pctLofinComboCtx) {
       },
       scales: {
         x: {
-          title: { display: true, text: '백분위수' },
+          title: { display: true, text: t('percentile') },
           ticks: {
             autoSkip: false,
             callback: function (value, index) {
@@ -200,7 +259,7 @@ if (pctLofinComboCtx) {
         y: {
           type: 'linear',
           position: 'right',
-          title: { display: true, text: '응답 시간 (ms)' },
+          title: { display: true, text: t('responseMs') },
           min: 0,
           ticks: { stepSize: 500 },
         },
@@ -237,7 +296,7 @@ if (pctLofinPredictionComboCtx) {
       labels: pctLabels,
       datasets: [
         {
-          label: '대조군(7월)',
+          label: t('controlJuly'),
           data: before,
           borderColor: 'rgb(255, 99, 132)',
           backgroundColor: 'rgba(255, 99, 132, 0.1)',
@@ -248,7 +307,7 @@ if (pctLofinPredictionComboCtx) {
           yAxisID: 'y',
         },
         {
-          label: '실험군(7월 예측)',
+          label: t('experimentJulyPrediction'),
           data: after,
           borderColor: 'rgb(54, 162, 235)',
           backgroundColor: 'rgba(54, 162, 235, 0.1)',
@@ -259,7 +318,7 @@ if (pctLofinPredictionComboCtx) {
           yAxisID: 'y',
         },
         {
-          label: '예측 개선율 (%)',
+          label: t('predictedImprovement'),
           data: improve,
           borderColor: 'rgb(40, 167, 69)',
           backgroundColor: 'rgba(40, 167, 69, 0.1)',
@@ -279,7 +338,7 @@ if (pctLofinPredictionComboCtx) {
         legend: { position: 'top' },
         title: {
           display: true,
-          text: '백분위수 응답시간 및 개선율 — 배포 전 조건부 예측',
+          text: t('predictionTitle'),
         },
         tooltip: {
           callbacks: {
@@ -293,7 +352,7 @@ if (pctLofinPredictionComboCtx) {
       },
       scales: {
         x: {
-          title: { display: true, text: '백분위수' },
+          title: { display: true, text: t('percentile') },
           ticks: {
             autoSkip: false,
             callback: function (value, index) {
@@ -305,7 +364,7 @@ if (pctLofinPredictionComboCtx) {
         y: {
           type: 'linear',
           position: 'right',
-          title: { display: true, text: '응답 시간 (ms)' },
+          title: { display: true, text: t('responseMs') },
           min: 0,
           ticks: { stepSize: 500 },
         },
@@ -342,7 +401,7 @@ if (pctLofinPredictionAllComboCtx) {
       labels: pctLabels,
       datasets: [
         {
-          label: '대조군(7월, 전체)',
+          label: t('controlJulyAll'),
           data: before,
           borderColor: 'rgb(255, 99, 132)',
           backgroundColor: 'rgba(255, 99, 132, 0.1)',
@@ -353,7 +412,7 @@ if (pctLofinPredictionAllComboCtx) {
           yAxisID: 'y',
         },
         {
-          label: '실험군(7월 예측, 전체)',
+          label: t('experimentJulyPredictionAll'),
           data: after,
           borderColor: 'rgb(54, 162, 235)',
           backgroundColor: 'rgba(54, 162, 235, 0.1)',
@@ -364,7 +423,7 @@ if (pctLofinPredictionAllComboCtx) {
           yAxisID: 'y',
         },
         {
-          label: '예측 개선율 (%)',
+          label: t('predictedImprovement'),
           data: improve,
           borderColor: 'rgb(40, 167, 69)',
           backgroundColor: 'rgba(40, 167, 69, 0.1)',
@@ -384,7 +443,7 @@ if (pctLofinPredictionAllComboCtx) {
         legend: { position: 'top' },
         title: {
           display: true,
-          text: '백분위수 응답시간 및 개선율 — 제외한 8.2%를 그대로 뒀을 때',
+          text: t('allPredictionTitle'),
         },
         tooltip: {
           callbacks: {
@@ -398,7 +457,7 @@ if (pctLofinPredictionAllComboCtx) {
       },
       scales: {
         x: {
-          title: { display: true, text: '백분위수' },
+          title: { display: true, text: t('percentile') },
           ticks: {
             autoSkip: false,
             callback: function (value, index) {
@@ -410,7 +469,7 @@ if (pctLofinPredictionAllComboCtx) {
         y: {
           type: 'linear',
           position: 'right',
-          title: { display: true, text: '응답 시간 (ms)' },
+          title: { display: true, text: t('responseMs') },
           min: 0,
           ticks: { stepSize: 500 },
         },

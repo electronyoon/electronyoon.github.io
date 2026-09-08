@@ -13,7 +13,8 @@
   // 필터 조상이 없어 position:fixed가 뷰포트 기준으로 동작한다(스크롤 추종).
   background: black;
 
-  #theme-toggle { filter: invert(1); }
+  #theme-toggle,
+  .lang-toggle { filter: invert(1); }
 
   .page-content {
     filter: invert(1);
@@ -42,17 +43,24 @@ body[a="dark"] { @include dark-appearance; }
 }
 // -------------------------------------------- //
 
-#theme-toggle {
+.site-controls {
   position: fixed;
   top: 1rem;
   right: 1rem;
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+#theme-toggle {
   background: none;
   border: none;
   cursor: pointer;
   font-size: 1.2rem;
   padding: 0.2rem;
   line-height: 0;
-  z-index: 100;
 
   svg { display: block; width: 20px; height: 20px; }
 }
@@ -97,6 +105,16 @@ ul, ol { padding-left: 1.15em; }
   white-space: nowrap;
   margin-left: 0.35em;
 }
+
+// 고정 언어 전환 버튼. 테마 토글 위에 놓고 같은 선형 SVG 톤을 쓴다.
+.lang-toggle {
+  line-height: 0;
+  padding: 0.2rem;
+  color: gray;
+  text-decoration: none;
+}
+.lang-toggle svg { display: block; width: 24px; height: 20px; }
+.lang-toggle:hover { color: inherit; }
 
 // 홈에서 게시글 링크만 밑줄 제거 (info의 linkedin/github는 유지)
 .home-menu .post-list a { text-decoration: none; }

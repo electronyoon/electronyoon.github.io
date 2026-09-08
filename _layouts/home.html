@@ -2,14 +2,18 @@
 layout: default
 ---
 <header>
-  <h1>{{ site.title }}</h1>
+  <h1>{{ page.title | default: site.title }}</h1>
   {%-if site.theme_config.show_description-%}
-    <p>{{ site.description }}</p>
+    <p>{{ page.description | default: site.description }}</p>
   {%-endif-%}
 </header>
 
 <div class="home-menu">
-  {%-include menu_item.html collection=site.data.menu.entries-%}
+  {%- if page.lang == "en" -%}
+    {%-include menu_item.html collection=site.data.menu_en.entries-%}
+  {%- else -%}
+    {%-include menu_item.html collection=site.data.menu.entries-%}
+  {%- endif -%}
 </div>
 
 {{ content }}
@@ -18,9 +22,9 @@ layout: default
 {
   "@context": "https://schema.org",
   "@type": "WebSite",
-  "name": "{{ site.title }}",
+  "name": "{{ page.title | default: site.title }}",
   "url": "{{ site.url }}",
-  "description": "{{ site.description }}",
+  "description": "{{ page.description | default: site.description }}",
   "potentialAction": {
     "@type": "SearchAction",
     "target": "{{ site.url }}/search?q={search_term_string}",
