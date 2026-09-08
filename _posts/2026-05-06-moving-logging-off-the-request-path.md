@@ -5,6 +5,7 @@ category: tech
 series: 속도개선
 lang: en
 ref: async-logging-final
+last_modified_at: 2026-06-22
 ---
 
 1. [What I fixed](#1-what-i-fixed)

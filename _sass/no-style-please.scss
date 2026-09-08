@@ -13,7 +13,8 @@
   // 필터 조상이 없어 position:fixed가 뷰포트 기준으로 동작한다(스크롤 추종).
   background: black;
 
-  #theme-toggle { filter: invert(1); }
+  #theme-toggle,
+  .lang-toggle { filter: invert(1); }
 
   .page-content {
     filter: invert(1);
@@ -98,18 +99,18 @@ ul, ol { padding-left: 1.15em; }
   margin-left: 0.35em;
 }
 
-// 고정 언어 전환 버튼. 테마 토글 왼쪽에 나란히. 같은 톤(회색·작게·밑줄 없음).
+// 고정 언어 전환 버튼. 테마 토글 왼쪽에 나란히 놓고 같은 선형 SVG 톤을 쓴다.
 .lang-toggle {
   position: fixed;
   top: 1rem;
-  right: 2.6rem;
+  right: 2.8rem;
   z-index: 100;
-  font-size: 0.8rem;
-  line-height: 1;
+  line-height: 0;
   padding: 0.2rem;
   color: gray;
   text-decoration: none;
 }
+.lang-toggle svg { display: block; width: 24px; height: 20px; }
 .lang-toggle:hover { color: inherit; }
 
 // 홈에서 게시글 링크만 밑줄 제거 (info의 linkedin/github는 유지)

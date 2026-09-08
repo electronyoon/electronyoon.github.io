@@ -4,6 +4,7 @@ title: "Semantic Search over Discord with a Local LLM"
 category: tech
 lang: en
 ref: discord-semantic-search
+last_modified_at: 2026-08-01
 ---
 
 My high-school friends and I trade small talk on Discord instead of KakaoTalk. Six years of it adds up to a lot of messages — about 650,000. Which makes digging up something we talked about ages ago genuinely hard.

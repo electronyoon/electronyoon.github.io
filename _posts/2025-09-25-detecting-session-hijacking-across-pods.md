@@ -4,6 +4,7 @@ title: "Detecting Session Hijacking across Pods"
 category: work
 lang: en
 ref: session-hijack-prevention
+last_modified_at: 2025-10-12
 ---
 
 1. [Introduction](#1-introduction)

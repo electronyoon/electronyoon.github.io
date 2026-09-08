@@ -1,5 +1,7 @@
 ---
 layout: home
 lang: en
-permalink: /en.html
+title: electronyoon's Blog
+description: A blog by Sangwoo Kim, a backend developer.
+permalink: /en
 ---

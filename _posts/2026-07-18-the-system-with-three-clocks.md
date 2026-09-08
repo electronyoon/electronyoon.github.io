@@ -4,6 +4,7 @@ title: "The System with Three Clocks"
 category: work
 lang: en
 ref: three-clocks
+last_modified_at: 2026-07-21
 ---
 
 

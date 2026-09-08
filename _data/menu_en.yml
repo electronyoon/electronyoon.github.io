@@ -1,11 +1,11 @@
 # English home menu. Mirrors _data/menu.yml in structure; labels in English,
 # post lists auto-filter to lang: en (see _includes/post_list.html).
-# Sections without translated posts yet (reviews, thoughts) are omitted until they exist.
+# Empty sections stay visible, matching the theme's default menu behavior.
 
 entries:
   - title: info
     entries:
-      - title: A blog by Kim Sangwoo, a backend developer. A few posts translated from Korean.
+      - title: A blog by Sangwoo Kim, a backend developer.
       - title: linkedin
         url: https://www.linkedin.com/in/electronyoon
       - title: github
@@ -24,3 +24,13 @@ entries:
     post_list:
       limit: 10
       category: tech
+
+  - title: 'posts in category "reviews"'
+    post_list:
+      limit: 10
+      category: reviews
+
+  - title: 'posts in category "thoughts"'
+    post_list:
+      limit: 10
+      category: thoughts

@@ -1,7 +1,7 @@
 {%-comment-%}
   목록은 현재 화면의 언어로만 채운다.
   - include.lang 이 있으면 그 값, 없으면 page.lang(홈/페이지엔 없으므로 ko).
-  - 이렇게 해서 / 는 예전과 똑같이 한국어 글만, /en.html 은 영문 글만 나온다.
+  - 이렇게 해서 / 는 예전과 똑같이 한국어 글만, /en 은 영문 글만 나온다.
 {%-endcomment-%}
 {%-assign list_lang = include.lang | default: page.lang | default: "ko"-%}
 

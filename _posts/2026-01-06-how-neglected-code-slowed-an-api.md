@@ -5,6 +5,7 @@ category: tech
 series: 속도개선
 lang: en
 ref: neglected-code-slow-api
+last_modified_at: 2026-01-17
 ---
 
 1. [Summary](#1-summary)
