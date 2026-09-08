@@ -8,6 +8,8 @@ description: >
 
 permalink: /:slug.html
 
+lang: ko # 사이트 기본 언어
+
 # 발행일을 한국 시각으로 해석한다.
 # 없으면 빌드 컨테이너(UTC) 기준이 되어, 발행일 당일 글이 미래로 취급돼 빌드에서 빠진다.
 timezone: Asia/Seoul
@@ -26,6 +28,15 @@ theme_config:
 
 sass:
   style: :compressed
+
+# 다국어: 모든 글은 lang: ko 로 두고, 번역본만 lang: en / lang: zh 로 덮어쓴다.
+# 원문-번역본은 같은 ref 값으로 묶는다(예: ref: three-clocks). ref 는 언어 전환·hreflang 에 쓰인다.
+defaults:
+  - scope:
+      path: ""
+      type: posts
+    values:
+      lang: ko
 
 plugins:
   - jekyll-feed

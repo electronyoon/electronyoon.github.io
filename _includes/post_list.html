@@ -17,7 +17,7 @@
   <ul class="post-list">
     {%- for post in posts limit: include.limit -%}
         <li>
-          <a href="{{ post.url | relative_url }}">{{ post.title | downcase }}</a>{%- comment -%}제목-날짜 사이 공백 제거{%- endcomment -%}<span class="post-date">{{- post.date | date: site.theme_config.date_format -}}</span>
+          <a href="{{ post.url | relative_url }}">{{ post.title | downcase }}</a>{%- comment -%}한국어 원문이 있는 번역본은 언어 태그를 붙인다(원문 대비 "몇 개만 번역"이 보이도록){%- endcomment -%}{%- unless post.lang == "ko" or post.lang == nil %} <sup class="post-lang-tag">{{ post.lang | upcase }}</sup>{% endunless -%}{%- comment -%}제목-날짜 사이 공백 제거{%- endcomment -%}<span class="post-date">{{- post.date | date: site.theme_config.date_format -}}</span>
         </li>
     {%- endfor -%}
     {%- if include.show_more and limit_exceeded -%}

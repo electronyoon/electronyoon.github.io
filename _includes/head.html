@@ -14,6 +14,14 @@
   {%-seo title=false-%}
   {%-feed_meta-%}
 
+  {%- comment -%}같은 ref 로 묶인 다른 언어 번역본을 hreflang 으로 연결{%- endcomment -%}
+  {%- if page.ref -%}
+    {%- assign translations = site.posts | where: "ref", page.ref -%}
+    {%- for t in translations -%}
+      <link rel="alternate" hreflang="{{ t.lang }}" href="{{ t.url | absolute_url }}" />
+    {%- endfor -%}
+  {%- endif -%}
+
   <link rel="shortcut icon" type="image/x-icon" href="{{ site.favicon | relative_url }}" />
   <link rel="stylesheet" href="{{ "/assets/css/main.css" | relative_url }}" />
   
