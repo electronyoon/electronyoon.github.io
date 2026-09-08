@@ -9,4 +9,4 @@ Gemfile.lock
 .DS_Store
 CLAUDE.md
 .donotcommit
-jekyll.log
+*.log
