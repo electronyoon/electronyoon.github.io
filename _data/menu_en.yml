@@ -1,0 +1,26 @@
+# English home menu. Mirrors _data/menu.yml in structure; labels in English,
+# post lists auto-filter to lang: en (see _includes/post_list.html).
+# Sections without translated posts yet (reviews, thoughts) are omitted until they exist.
+
+entries:
+  - title: info
+    entries:
+      - title: A blog by Kim Sangwoo, a backend developer. A few posts translated from Korean.
+      - title: linkedin
+        url: https://www.linkedin.com/in/electronyoon
+      - title: github
+        url: https://github.com/electronyoon
+
+  - title: 'posts in the "Speed" series'
+    post_list:
+      series: 속도개선
+
+  - title: 'posts in category "work"'
+    post_list:
+      limit: 10
+      category: work
+
+  - title: 'posts in category "tech"'
+    post_list:
+      limit: 10
+      category: tech

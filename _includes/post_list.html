@@ -1,12 +1,19 @@
+{%-comment-%}
+  목록은 현재 화면의 언어로만 채운다.
+  - include.lang 이 있으면 그 값, 없으면 page.lang(홈/페이지엔 없으므로 ko).
+  - 이렇게 해서 / 는 예전과 똑같이 한국어 글만, /en.html 은 영문 글만 나온다.
+{%-endcomment-%}
+{%-assign list_lang = include.lang | default: page.lang | default: "ko"-%}
+
 {%-if include.series-%}
-  {%-assign posts = site.posts | where: "series", include.series-%}
+  {%-assign posts = site.posts | where: "series", include.series | where: "lang", list_lang-%}
 {%-elsif include.lang-%}
-  {%-assign posts = site.posts | where: "lang", include.lang-%}
+  {%-assign posts = site.posts | where: "lang", list_lang-%}
 {%-elsif include.category-%}
   {%-comment-%}시리즈로 묶인 글은 시리즈 목록에만 노출하고 카테고리 목록에서는 뺀다{%-endcomment-%}
-  {%-assign posts = site.categories[include.category] | where_exp: "post", "post.series == nil"-%}
+  {%-assign posts = site.categories[include.category] | where_exp: "post", "post.series == nil" | where: "lang", list_lang-%}
 {%-else-%}
-  {%-assign posts = site.posts-%}
+  {%-assign posts = site.posts | where: "lang", list_lang-%}
 {%-endif-%}
 
 {%-if include.limit and posts.size > include.limit-%}
@@ -19,7 +26,7 @@
   <ul class="post-list">
     {%- for post in posts limit: include.limit -%}
         <li>
-          <a href="{{ post.url | relative_url }}">{{ post.title | downcase }}</a>{%- comment -%}한국어 원문이 있는 번역본은 언어 태그를 붙인다(원문 대비 "몇 개만 번역"이 보이도록){%- endcomment -%}{%- unless post.lang == "ko" or post.lang == nil %} <sup class="post-lang-tag">{{ post.lang | upcase }}</sup>{% endunless -%}{%- comment -%}제목-날짜 사이 공백 제거{%- endcomment -%}<span class="post-date">{{- post.date | date: site.theme_config.date_format -}}</span>
+          <a href="{{ post.url | relative_url }}">{{ post.title | downcase }}</a>{%- comment -%}제목-날짜 사이 공백 제거{%- endcomment -%}<span class="post-date">{{- post.date | date: site.theme_config.date_format -}}</span>
         </li>
     {%- endfor -%}
     {%- if include.show_more and limit_exceeded -%}

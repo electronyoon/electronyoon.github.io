@@ -1,9 +1,5 @@
 ---
-layout: page
-title: Posts in English
+layout: home
 lang: en
+permalink: /en.html
 ---
-
-A few posts from this blog, translated. The rest are in Korean.
-
-{% include post_list.html lang="en" %}

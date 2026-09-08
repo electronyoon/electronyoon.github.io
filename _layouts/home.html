@@ -9,7 +9,11 @@ layout: default
 </header>
 
 <div class="home-menu">
-  {%-include menu_item.html collection=site.data.menu.entries-%}
+  {%- if page.lang == "en" -%}
+    {%-include menu_item.html collection=site.data.menu_en.entries-%}
+  {%- else -%}
+    {%-include menu_item.html collection=site.data.menu.entries-%}
+  {%- endif -%}
 </div>
 
 {{ content }}

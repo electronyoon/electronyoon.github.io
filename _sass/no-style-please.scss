@@ -98,13 +98,6 @@ ul, ol { padding-left: 1.15em; }
   margin-left: 0.35em;
 }
 
-// 목록에서 번역본 옆 작은 언어 태그(EN, ZH). 회색·작게, 원문(한국어)엔 안 붙는다.
-.post-lang-tag {
-  color: gray;
-  font-size: 0.65em;
-  font-weight: normal;
-}
-
 // 고정 언어 전환 버튼. 테마 토글 왼쪽에 나란히. 같은 톤(회색·작게·밑줄 없음).
 .lang-toggle {
   position: fixed;
