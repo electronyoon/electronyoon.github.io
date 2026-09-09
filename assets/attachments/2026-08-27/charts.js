@@ -12,7 +12,7 @@ const chartMessages = {
     validPeriod: '유효기간',
     lineageTitle: '선분이력 예시',
     beforeAug: '배포 전(8월)',
-    afterSep: '배포 후(9/2)',
+    afterWeek1: '배포 후(9/2~9/8)',
     improvement: '개선율 (%)',
     percentileResponseTitle: '백분위수 응답시간 및 개선율',
     percentile: '백분위수',
@@ -34,7 +34,7 @@ const chartMessages = {
     validPeriod: 'Validity period',
     lineageTitle: 'Valid-time history example',
     beforeAug: 'Before deployment (August)',
-    afterSep: 'After deployment (September 2)',
+    afterWeek1: 'After deployment (Sep 2–8)',
     improvement: 'Improvement (%)',
     percentileResponseTitle: 'Response time and improvement by percentile',
     percentile: 'Percentile',
@@ -182,7 +182,7 @@ const pctLofinComboCtx = document.getElementById('chart-pct-lofin-combo');
 if (pctLofinComboCtx) {
   const pctLabels = Array.from({ length: 99 }, (_, i) => `P${i + 1}`);
   const before = [13,29,34,37,41,46,52,61,75,88,103,120,135,141,144,147,149,152,154,156,159,161,164,168,172,177,183,194,220,823,1043,1136,1175,1204,1229,1249,1268,1284,1299,1313,1326,1340,1353,1366,1379,1393,1407,1421,1435,1450,1466,1485,1506,1527,1544,1558,1569,1578,1586,1594,1600,1607,1613,1620,1626,1632,1638,1644,1650,1657,1664,1671,1679,1687,1696,1706,1716,1728,1740,1755,1775,1804,1847,1916,2011,2107,2199,2293,2378,2467,2544,2626,2774,3273,4826,5135,5544,6432,7637]; // 배포 전(8월) 실측 response_time percentile (P1~P99), 789,260건
-  const after = [22,26,30,33,38,43,47,51,55,60,67,72,78.43,85,91,100,108,117,122,124,126,127,128,129,129,130,131,131,132,132,133,134,134,134,135,135,136,136,137,137,138,138,139,139,139,140,140,141,141,142,142,142,143,143,144,144,144,145,145,146,146,147,147,148,148,149,149,150,150,151,152,152,153,154,154,155,156,157,158,159,160,161,162,164,165,167,170,173,175,179,184,193,209.23,308.34,515.45,744.56,1025.67,1300,1417.89]; // 배포 후(9/2 하루) 실측 response_time percentile (P1~P99), 27,212건
+  const after = [5,6,6,12,24,27,31,34,39,45,51,57,69,82,100,117,121,123,125,126,127,128,128,129,130,130,131,132,132,133,133,134,134,135,135,135,136,136,137,137,138,138,138,139,139,140,140,140,141,141,142,142,142,143,143,143,144,144,145,145,145,146,146,147,147,148,148,149,149,150,150,151,151,152,153,153,154,155,155,156,157,158,159,160,161,162,163,165,166,168,170,172,175,179,183,189,201,252.3,1330]; // 배포 후(9/2~9/8) 실측 response_time percentile (P1~P99), 358,286건
   const improve = before.map((b, i) => Number((((b - after[i]) / b) * 100).toFixed(1)));
 
   new Chart(pctLofinComboCtx, {
@@ -202,7 +202,7 @@ if (pctLofinComboCtx) {
           yAxisID: 'y',
         },
         {
-          label: t('afterSep'),
+          label: t('afterWeek1'),
           data: after,
           borderColor: 'rgb(54, 162, 235)',
           backgroundColor: 'rgba(54, 162, 235, 0.1)',
