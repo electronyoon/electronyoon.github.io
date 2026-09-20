@@ -5,7 +5,7 @@ category: tech
 series: 속도개선
 lang: en
 ref: api-page-table
-last_modified_at: 2026-09-09
+last_modified_at: 2026-09-16
 ---
 
 1. [Can't the database handle this?](#1-cant-the-database-handle-this)
@@ -34,10 +34,10 @@ The approach this post takes is to have the cache, not the database, guarantee t
 
 I ran a full date-by-date boundary test across two years of data to confirm the response was identical before and after, and put in a ratio-based feature flag for gradual rollout and rollback.
 
-- mean 88.7% (1,458ms → 164.5ms)
-- median 90.3% (1,450ms → 141ms)
+- mean 88.0% (1,458ms → 175.7ms)
+- median 90.1% (1,450ms → 143ms)
 - P95 96.2% (4,826ms → 183ms)
-- P99 82.6% (7,637ms → 1,330ms)
+- P99 82.0% (7,637ms → 1,374ms)
 
 It improved.
 
@@ -449,23 +449,23 @@ I also checked whether the excluded 8.2% skewed the result[^allpop]. Details fol
 ### Measurement
 
 - August, the comparison period, saw heavier load than other months. That should be kept in mind when reading the results.
-- P23 through P97 were generally in line with the prediction, within ±6%.
-- The tail latency around P98 came from cache misses and searches using the dbizNm (program name) parameter. The latter is outside the scope of this change.
+- P24 through P97 were generally in line with the prediction, within ±6%.
+- The tail latency around P98–P99 came from cache misses and searches using the dbizNm (program name) parameter. The latter is outside the scope of this change.
 
 <canvas id="chart-pct-lofin-combo"></canvas>
 
-| Metric | Before | After, 1 day | After, 1 week | <span style="opacity:0.45;">2 weeks</span> | <span style="opacity:0.45;">1 month</span> |
+| Metric | Before | After, 1 day | After, 1 week | After, 2 weeks | <span style="opacity:0.45;">1 month</span> |
 |:---:|:---:|:---:|:---:|:---:|:---:|
-| mean | 1,458ms | 184ms (▼87.4%) | 164.5ms (▼88.7%) | | |
-| median | 1,450ms | 142ms (▼90.2%) | 141ms (▼90.3%) | | |
-| P95 | 4,826ms | 515ms (▼89.3%) | 183ms (▼96.2%) | | |
-| P99 | 7,637ms | 1,418ms (▼81.4%) | 1,330ms (▼82.6%) | | |
+| mean | 1,458ms | 184ms (▼87.4%) | 164.5ms (▼88.7%) | 175.7ms (▼88.0%) | |
+| median | 1,450ms | 142ms (▼90.2%) | 141ms (▼90.3%) | 143ms (▼90.1%) | |
+| P95 | 4,826ms | 515ms (▼89.3%) | 183ms (▼96.2%) | 183ms (▼96.2%) | |
+| P99 | 7,637ms | 1,418ms (▼81.4%) | 1,330ms (▼82.6%) | 1,374ms (▼82.0%) | |
 
 - before, 1 month, 2026.08.01 to 2026.08.31, about 790,000 transactions
 - after, 1 day, 2026.09.02, about 30,000 transactions
 - after, 1 week, 2026.09.02 to 2026.09.08, about 360,000 transactions
+- after, 2 weeks, 2026.09.02 to 2026.09.15, about 680,000 transactions
 <div style="opacity:0.45;" markdown="1">
-- after, 2 weeks, 2026.09.02 to 2026.09.15, about - (pending)
 - after, 1 month, 2026.09.02 to 2026.09.30, about - (pending)
 </div>
 
